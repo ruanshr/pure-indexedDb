@@ -1,18 +1,18 @@
-export declare type IIndexedDbOption = {
+export type IIndexedDbOption = {
     dbName: string;
     version: number;
     tables?: DbTable[];
 };
-export declare type DbIndex = {
+export type DbIndex = {
     key: string;
     option?: IDBObjectStoreParameters;
 };
-export declare type DbTable = {
+export type DbTable = {
     tableName: string;
     option?: IDBObjectStoreParameters;
     indexs?: DbIndex[];
 };
-export declare type AtleastOne<T, U = {
+export type AtleastOne<T, U = {
     [K in keyof T]: Pick<T, K>;
 }> = Partial<T> & U[keyof U];
 export interface DbOperate<T> {
