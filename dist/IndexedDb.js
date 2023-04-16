@@ -234,7 +234,7 @@ class IndexedDb {
                 reject(e);
             };
             request.onsuccess = (event) => {
-                this.db = event.target.reult;
+                this.db = event.target.result;
                 let task;
                 while (task = this.queue.shift()) {
                     task();

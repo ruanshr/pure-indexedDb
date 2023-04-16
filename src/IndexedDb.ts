@@ -2,7 +2,7 @@
 export type IIndexedDbOption = {
   dbName: string;
   version: number;
-  tables: DbTable[];
+  tables?: DbTable[];
 }
 
 export type DbIndex = { key: string, option?: IDBObjectStoreParameters };
@@ -10,7 +10,7 @@ export type DbIndex = { key: string, option?: IDBObjectStoreParameters };
 export type DbTable = {
   tableName: string;
   option?: IDBObjectStoreParameters;
-  indexs: DbIndex[];
+  indexs?: DbIndex[];
 }
 
 export type AtleastOne<T, U = { [K in keyof T]: Pick<T, K> }> = Partial<T> & U[keyof U];
@@ -288,7 +288,7 @@ export class IndexedDb {
         reject(e)
       }
       request.onsuccess = (event: any) => {
-        this.db = event.target.reult;
+        this.db = event.target.result;
         let task: () => void;
         while (task = this.queue.shift() as any) {
           task()
@@ -422,7 +422,7 @@ export class IndexedDb {
    *      @property currentValue当前值
    *   @property {Function} success  游标遍历完执行的方法
    */
-  cursorSuccess<T>(e: any, { condition, handler, success }: ICursorSuccessOption<T>): void {
+  private cursorSuccess<T>(e: any, { condition, handler, success }: ICursorSuccessOption<T>): void {
     const cursor: IDBCursorWithValue = e.target.result;
     if (cursor) {
       const currentValue = cursor.value;

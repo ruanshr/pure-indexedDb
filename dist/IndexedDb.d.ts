@@ -1,7 +1,7 @@
 export declare type IIndexedDbOption = {
     dbName: string;
     version: number;
-    tables: DbTable[];
+    tables?: DbTable[];
 };
 export declare type DbIndex = {
     key: string;
@@ -10,7 +10,7 @@ export declare type DbIndex = {
 export declare type DbTable = {
     tableName: string;
     option?: IDBObjectStoreParameters;
-    indexs: DbIndex[];
+    indexs?: DbIndex[];
 };
 export declare type AtleastOne<T, U = {
     [K in keyof T]: Pick<T, K>;
@@ -27,11 +27,6 @@ export interface DbOperate<T> {
     condition(data: T): boolean;
     success(res: T | T[]): void;
     handle(res: T): void;
-}
-interface ICursorSuccessOption<T> {
-    condition?: (data: T) => boolean;
-    handler: (param: any) => void;
-    success?: () => void;
 }
 /**
  * 获取indexedDb
@@ -163,6 +158,5 @@ export declare class IndexedDb {
      *      @property currentValue当前值
      *   @property {Function} success  游标遍历完执行的方法
      */
-    cursorSuccess<T>(e: any, { condition, handler, success }: ICursorSuccessOption<T>): void;
+    private cursorSuccess;
 }
-export {};
